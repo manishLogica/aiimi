@@ -36,12 +36,13 @@ This script will ask you:
 
 This script will then inform you of where you can download the newly created certificates.
 
-### Use you existing certificates
+### Use your existing certificates
 
 You can provide the path for your existing certificates with the **-c** parameter:
 ```
 ./compose.sh -c /mnt/c/InsightMaker/certs
 ```
+Note that if they exist in windows, wsl should mount the windows system, like above. Docker will then mount this as the path for the certificates required by the containers.
 
 This path will require a folder structure to match:
 ```
