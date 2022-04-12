@@ -1,0 +1,17 @@
+
+  NODENAME:
+    container_name: NODENAME
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.17.0
+    environment:
+      node.name: NODENAME
+      <<: *common-env
+    volumes: ['CERTS_PATH:$IM_INTERNAL_CERTS']    
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "curl -k -XGET https://localhost:9200 | grep -q 'missing authentication credentials'",
+        ]
+      interval: 10s
+      timeout: 10s
+      retries: 120

@@ -1,0 +1,20 @@
+  # wait_until_ready:
+  #   image: docker.elastic.co/elasticsearch/elasticsearch:7.17.0
+  #   command: /usr/bin/true
+  #   depends_on: {"es01": {"condition": "service_healthy"}}
+  kibana:
+    container_name: NETWORKNAME-kibana
+    image: docker.elastic.co/kibana/kibana:7.17.0
+    volumes: ['certs:$IM_INTERNAL_CERTS']
+    ports:
+      - 5601:5601
+    environment:
+      - ELASTICSEARCH_HOSTS=$ELASTICSEARCH_HOSTS
+      - XPACK_SECURITY_ENABLED=true
+      - ELASTICSEARCH_USERNAME=$IM_ELASTIC_USER
+      - ELASTICSEARCH_PASSWORD=$IM_ELASTIC_PASSWORD
+      - ELASTICSEARCH_SSL_CERTIFICATEAUTHORITIES=$IM_INTERNAL_CERTS/ca/ca.crt
+      - ELASTICSEARCH_SSL_VERIFICATIONMODE=certificate
+      - SERVER_SSL_ENABLED=false
+    depends_on: {"NETWORKNAME01": {"condition": "service_healthy"}}
+      # - "wait_until_ready"

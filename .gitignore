@@ -1,0 +1,3 @@
+elastic/docker-compose.yml
+elastic/loadbalancer/*
+elastic/elastic.rc

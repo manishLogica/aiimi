@@ -1,0 +1,13 @@
+{
+    "license": {
+        "uid": "eea065e3-af33-4f0d-ae7e-0ef9d5f5963f",
+        "type": "trial",
+        "issue_date_in_millis": 1627257600000,
+        "expiry_date_in_millis": 1658966399999,
+        "max_nodes": 15,
+        "issued_to": "Aiimi (non-production environments)",
+        "issuer": "API",
+        "signature": "AAAAAwAAAA18E6VdmU34gWsdM7GxAAABmC9ZN0hjZDBGYnVyRXpCOW5Bb3FjZDAxOWpSbTVoMVZwUzRxVk1PSmkxaktJRVl5MUYvUWh3bHZVUTllbXNPbzBUemtnbWpBbmlWRmRZb25KNFlBR2x0TXc2K2p1Y1VtMG1UQU9TRGZVSGRwaEJGUjE3bXd3LzRqZ05iLzRteWFNekdxRGpIYlFwYkJiNUs0U1hTVlJKNVlXekMrSlVUdFIvV0FNeWdOYnlESDc3MWhlY3hSQmdKSjJ2ZTcvYlBFOHhPQlV3ZHdDQ0tHcG5uOElCaDJ4K1hob29xSG85N0kvTWV3THhlQk9NL01VMFRjNDZpZEVXeUtUMXIyMlIveFpJUkk2WUdveEZaME9XWitGUi9WNTZVQW1FMG1DenhZU0ZmeXlZakVEMjZFT2NvOWxpZGlqVmlHNC8rWVVUYzMwRGVySHpIdURzKzFiRDl4TmM1TUp2VTBOUlJZUlAyV0ZVL2kvVk10L0NsbXNFYVZwT3NSU082dFNNa2prQ0ZsclZ4NTltbU1CVE5lR09Bck93V2J1Y3c9PQAAAQChK70S/zdKEkLrZUcNtb2YXQI2M7GCLZ9ATLxh8g+3lZE7B7Bj9fLg4vhsTDpPu9apHRhNPqUtKoDnEhs1f+J+Zvr6r1bqmSLlfDattQl2QsWOTmkgfw4Gllcknyjr0IrUsOugjQAjrEMOhWCCB35JArNxFSuQ77qNOhgp5jCzlEPFABm1beswYBwJC4k5qAGbJA/aVCChFODD9Xjy3fx2EElnwkzwv1mrOqJRk3ezD/IP/ddJv9BJ0zlsl08tKhzdx8kvT/DrRGF88MBCr2GuUHUdOt4MLN94e/Tuqi5M3n+GSVO2eqWa8Ielmeo3AOlMTQ/rXkbgV9q4bNfXUAaf",
+        "start_date_in_millis": 1627257600000
+    }
+}

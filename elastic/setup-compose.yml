@@ -1,0 +1,23 @@
+version: '2.2'
+x-environment: &common-env
+  discovery.seed_hosts: NODE_NAMES
+  cluster.initial_master_nodes: NODE_NAMES
+  ELASTIC_PASSWORD: $IM_ELASTIC_PASSWORD 
+  ES_JAVA_OPTS: -Xms512m -Xmx512m
+  xpack.license.self_generated.type: trial 
+  xpack.security.enabled: "true"
+  xpack.security.http.ssl.enabled: "true"
+  xpack.security.http.ssl.certificate_authorities: $IM_INTERNAL_CERTS/ca/ca.crt
+  xpack.security.transport.ssl.enabled: "true"
+  xpack.security.transport.ssl.verification_mode: certificate 
+  xpack.security.transport.ssl.certificate_authorities: $IM_INTERNAL_CERTS/ca/ca.crt
+  xpack.security.http.ssl.key: $IM_INTERNAL_CERTS/instance/instance.key
+  xpack.security.http.ssl.certificate: $IM_INTERNAL_CERTS/instance/instance.crt
+  xpack.security.transport.ssl.certificate: $IM_INTERNAL_CERTS/instance/instance.crt
+  xpack.security.transport.ssl.key: $IM_INTERNAL_CERTS/instance/instance.key
+  IM_INTERNAL_CERTS: &IM_INTERNAL_CERTS $IM_INTERNAL_CERTS
+  ELASTICSEARCH_HOSTS: &ELASTICSEARCH_HOSTS $ELASTICSEARCH_HOSTS
+  IM_ELASTIC_USER: &IM_ELASTIC_USER $IM_ELASTIC_USER
+  IM_CA_PASSWORD: &IM_CA_PASSWORD $IM_CA_PASSWORD
+  IM_CERT_PASSWORD: &IM_CERT_PASSWORD $IM_CERT_PASSWORD
+services:

@@ -1,0 +1,15 @@
+version: '2.2'
+x-environment: &common-env
+  COMPOSE_PROJECT_NAME: &COMPOSE_PROJECT_NAME $COMPOSE_PROJECT_NAME
+  ELASTIC_USER: &IM_ELASTIC_USER $IM_ELASTIC_USER 
+  ELASTIC_PASSWORD: &IM_ELASTIC_PASSWORD $IM_ELASTIC_PASSWORD 
+services:
+  elastic_license:
+    container_name: elastic_license
+    image: curlimages/curl
+    environment:
+      <<: *common-env
+    working_dir: /code
+    command: [sh, './apply-license.sh']
+    # command: tail -f /dev/null
+    volumes: ['.:/code']

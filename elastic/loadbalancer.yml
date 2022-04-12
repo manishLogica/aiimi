@@ -1,0 +1,14 @@
+  NETWORKNAME-elastic:
+    container_name: NETWORKNAME-elastic
+    image: nginx
+    volumes: [
+      'CERTS_PATH:$IM_INTERNAL_CERTS',
+      './loadbalancer:/etc/nginx/conf.d'
+    ]
+    environment:
+      <<: *common-env
+    restart: "no"
+    ports:
+      - 9200:9200
+    # command: tail -f /dev/null
+    command: nginx -g 'daemon off;'
