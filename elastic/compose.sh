@@ -137,7 +137,9 @@ source ./elastic.rc
 echo "${ELASTICSEARCH_HOSTS}"
 docker network create "${COMPOSE_PROJECT_NAME}"
 
+if [[ $CERTS = 'certs' ]]; then
 docker-compose -f create-certs.yml run --rm create_certs
+fi
 
 # if containers fail with max_map_count error, check https://www.elastic.co/guide/en/elasticsearch/reference/current/docker.html#docker-cli-run-prod-mode for guidance to increase it
 docker-compose up -d

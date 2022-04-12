@@ -5,7 +5,7 @@
   kibana:
     container_name: NETWORKNAME-kibana
     image: docker.elastic.co/kibana/kibana:7.17.0
-    volumes: ['certs:$IM_INTERNAL_CERTS']
+    volumes: ['CERTS_PATH:$IM_INTERNAL_CERTS']
     ports:
       - 5601:5601
     environment:
