@@ -54,3 +54,28 @@ This path will require a folder structure to match:
 └ elastic-stack-ca.p12
 ```
 The password protection would need to be the default **changeme**.
+
+# Generate an import file for the Tovicci dataset
+
+```
+cd ./tovicci
+./create-import.sh
+```
+
+You will be asked for
+- the machine name where your Agents are to be installed. It will default to that of the machine you are on.
+- the location of the EL02 shared drive. Might be wise to map it first, and when asked, supply ```f:\\Tovicci```
+
+Copy you new json file, so it can be easily accessed by your **IndexUtilities.exe**, then run:
+```
+InsightMaker.IndexUtilities.exe import --all PATH-TO-YOUR-NEW-FILE/tovicci.json
+```
+
+This should then create all you need.
+
+**NOTE** You find it easier to have first applied the index and mapping, and then install the BuiltinSecurity plugin.
+```
+InsightMaker.IndexUtilities.dll map -s
+InsightMaker.IndexUtilities.dll initialise -afmsdp
+InsightMaker.Security.BuiltinSecurityUtilities.dll initialise
+```
