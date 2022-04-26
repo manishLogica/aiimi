@@ -6,7 +6,7 @@ if ! [[ -z $namespace ]] && [[ "${namespace}" != "" ]]; then
 fi
 echo "Release: ${RELEASE_TO_BUILD}"
 export RELEASE=${RELEASE_TO_BUILD}
-export COMPOSE_PROJECT_NAME=DisclosurePortal-${RELEASE}
+export COMPOSE_PROJECT_NAME=AIE-QA-${RELEASE}
 export IM_INTERNAL_CERTS=/usr/share/elasticsearch/config/certificates
 export IM_CA_PASSWORD=changeme
 export IM_CERT_PASSWORD=changeme
