@@ -1,0 +1,172 @@
+version: '2.2'
+x-environment:
+  # CERTS_DIR: $CERTS_DIR
+  # KIBANA_CERT_PASSWORD: $KIBANA_CERT_PASSWORD
+  &common-env
+  RELEASE: &RELEASE $RELEASE
+  IM_ELASTIC_SERVERS: $IM_ELASTIC_SERVERS
+  IM_ELASTIC_USER: $IM_ELASTIC_USER
+  IM_ELASTIC_PASSWORD: $IM_ELASTIC_PASSWORD
+  IM_ELASTIC_PREFIX: $IM_ELASTIC_PREFIX
+  IM_INTERNAL_CERTS: &CERTS_DIR $IM_INTERNAL_CERTS
+  IM_DOTNET: $IM_DOTNET
+  IM_LICENSE_KEY: $IM_LICENSE_KEY
+  IM_LICENSE_SECRET: $IM_LICENSE_SECRET
+  IM_LOGS: $IM_LOGS
+  IM_PORT_JOB_AGENT: &IM_PORT_JOB_AGENT $IM_PORT_JOB_AGENT
+  IM_PORT_SOURCE_AGENT: &IM_PORT_SOURCE_AGENT $IM_PORT_SOURCE_AGENT
+  IM_PORT_SECURITY_AGENT: &IM_PORT_SECURITY_AGENT $IM_PORT_SECURITY_AGENT
+  IM_PORT_ENRICHMENT_AGENT: &IM_PORT_ENRICHMENT_AGENT $IM_PORT_ENRICHMENT_AGENT
+  IM_PORT_OCR_AGENT: &IM_PORT_OCR_AGENT $IM_PORT_OCR_AGENT
+  IM_PORT_CONTENT_AGENT: &IM_PORT_CONTENT_AGENT $IM_PORT_CONTENT_AGENT
+  IM_PORT_MIGRATION_AGENT: &IM_PORT_MIGRATION_AGENT $IM_PORT_MIGRATION_AGENT
+  IM_HOST_JOB_AGENT: &IM_HOST_JOB_AGENT $IM_HOST_JOB_AGENT
+  IM_HOST_SOURCE_AGENT: &IM_HOST_SOURCE_AGENT $IM_HOST_SOURCE_AGENT
+  IM_HOST_SECURITY_AGENT: &IM_HOST_SECURITY_AGENT $IM_HOST_SECURITY_AGENT
+  IM_HOST_ENRICHMENT_AGENT: &IM_HOST_ENRICHMENT_AGENT $IM_HOST_ENRICHMENT_AGENT
+  IM_HOST_OCR_AGENT: &IM_HOST_OCR_AGENT $IM_HOST_OCR_AGENT
+  IM_HOST_CONTENT_AGENT: &IM_HOST_CONTENT_AGENT $IM_HOST_CONTENT_AGENT
+  IM_HOST_MIGRATION_AGENT: &IM_HOST_MIGRATION_AGENT $IM_HOST_MIGRATION_AGENT
+x-container:
+  &container
+  image: aiimilabs/be:${RELEASE}
+  volumes:
+    [
+      'thumbnails:/thumbnails',
+      'certs:$IM_INTERNAL_CERTS',
+      'agent_persist:$IM_AGENTS_COMMON_VOLUME',
+      'samplefiles:/samplefiles'
+    ]
+  restart: "no"
+  extra_hosts:
+    - "host.docker.internal:host-gateway"
+  # restart: unless-stopped
+services:
+  job-agent:
+    container_name: ${IM_HOST_JOB_AGENT}
+    <<: *container
+    environment:
+      <<: *common-env
+      IM_WORKER_NAME: cloud
+      IM_ELASTIC_SERVER: ${RELEASE}-elastic
+      IM_REMOTE_ADDRESS: https://${IM_HOST_JOB_AGENT}
+    command: dotnet /app/JobAgent/InsightMaker.JobAgent.dll
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "curl -k -I https://localhost:${IM_PORT_JOB_AGENT}/healthcheck --header 'authorization: Bearer insightmaker' --fail || exit 1"
+        ]
+      interval: 10s
+      timeout: 10s
+      retries: 120
+  source-agent:
+    container_name: ${IM_HOST_SOURCE_AGENT}
+    <<: *container
+    environment:
+      <<: *common-env
+      IM_WORKER_NAME: cloud
+      IM_ELASTIC_SERVER: ${RELEASE}-elastic
+      IM_REMOTE_ADDRESS: https://${IM_HOST_SOURCE_AGENT}
+    command: dotnet /app/SourceAgent/InsightMaker.SourceAgent.dll
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "curl -k -I https://localhost:${IM_PORT_SOURCE_AGENT}/healthcheck --header 'authorization: Bearer insightmaker' --fail || exit 1"
+        ]
+      interval: 10s
+      timeout: 10s
+      retries: 120
+  security-agent:
+    container_name: ${IM_HOST_SECURITY_AGENT}
+    <<: *container
+    environment:
+      <<: *common-env
+      IM_WORKER_NAME: cloud
+      IM_ELASTIC_SERVER: ${RELEASE}-elastic
+      IM_REMOTE_ADDRESS: https://${IM_HOST_SECURITY_AGENT}
+    command: dotnet /app/SecurityAgent/InsightMaker.SecurityAgent.dll
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "curl -k -I https://localhost:${IM_PORT_SECURITY_AGENT}/healthcheck --header 'authorization: Bearer insightmaker' --fail || exit 1"
+        ]
+      interval: 10s
+      timeout: 10s
+      retries: 120
+  enrichment-agent:
+    container_name: ${IM_HOST_ENRICHMENT_AGENT}
+    <<: *container
+    environment:
+      <<: *common-env
+      IM_WORKER_NAME: cloud
+      IM_ELASTIC_SERVER: ${RELEASE}-elastic
+      IM_REMOTE_ADDRESS: https://${IM_HOST_ENRICHMENT_AGENT}
+    command: dotnet /app/EnrichmentAgent/InsightMaker.EnrichmentAgent.dll
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "curl -k -I https://localhost:${IM_PORT_ENRICHMENT_AGENT}/healthcheck --header 'authorization: Bearer insightmaker' --fail || exit 1"
+        ]
+      interval: 10s
+      timeout: 10s
+      retries: 120
+  ocr-agent:
+    container_name: ${IM_HOST_OCR_AGENT}
+    <<: *container
+    environment:
+      <<: *common-env
+      IM_WORKER_NAME: cloud
+      IM_ELASTIC_SERVER: ${RELEASE}-elastic
+      IM_REMOTE_ADDRESS: https://${IM_HOST_OCR_AGENT}
+    command: dotnet /app/OcrAgent/InsightMaker.OcrAgent.dll
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "curl -k -I https://localhost:${IM_PORT_OCR_AGENT}/healthcheck --header 'authorization: Bearer insightmaker' --fail || exit 1"
+        ]
+      interval: 10s
+      timeout: 10s
+      retries: 120
+  content-agent:
+    container_name: ${IM_HOST_CONTENT_AGENT}
+    <<: *container
+    environment:
+      <<: *common-env
+      IM_WORKER_NAME: cloud
+      IM_ELASTIC_SERVER: ${RELEASE}-elastic
+      IM_REMOTE_ADDRESS: https://${IM_HOST_CONTENT_AGENT}
+    command: dotnet /app/ContentAgent/InsightMaker.ContentAgent.dll
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "curl -k -I https://localhost:${IM_PORT_CONTENT_AGENT}/healthcheck --header 'authorization: Bearer insightmaker' --fail || exit 1"
+        ]
+      interval: 10s
+      timeout: 10s
+      retries: 120
+  migration-agent:
+    container_name: ${IM_HOST_MIGRATION_AGENT}
+    <<: *container
+    environment:
+      <<: *common-env
+      IM_WORKER_NAME: cloud
+      IM_ELASTIC_SERVER: ${RELEASE}-elastic
+      IM_REMOTE_ADDRESS: https://${IM_HOST_MIGRATION_AGENT}
+    command: dotnet /app/MigrationAgent/InsightMaker.MigrationAgent.dll
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "curl -k -I https://localhost:${IM_PORT_MIGRATION_AGENT}/healthcheck --header 'authorization: Bearer insightmaker' --fail || exit 1"
+        ]
+      interval: 10s
+      timeout: 10s
+      retries: 120
+
+volumes: { "certs", "agent_persist", "samplefiles", "thumbnails" }

@@ -79,3 +79,25 @@ InsightMaker.IndexUtilities.dll map -s
 InsightMaker.IndexUtilities.dll initialise -afmsdp
 InsightMaker.Security.BuiltinSecurityUtilities.dll initialise
 ```
+
+# Spin-up a full AIE system in Docker
+
+Perform any pre-requisites found in the [AIE Wiki](https://github.com/AiimiLtd/InsightMaker/wiki/Docker---Getting-Started) and ensure your Docker install is logged-in to Docker Hub with access to [AiimiLabs backend](https://hub.docker.com/repository/docker/aiimilabs/be), [AiimiLabs frontend](https://hub.docker.com/repository/docker/aiimilabs/fe) & [AiimiLabs elastic](https://hub.docker.com/repository/docker/aiimilabs/es).
+
+To create a full InsightEngine system in Docker...
+
+- from the Staging Branch
+
+```
+cd ./aie
+./start.sh
+```
+
+- from a Release Tag (e.g. v1.0.0)
+
+```
+cd ./aie
+./start.sh v1.0.0
+```
+
+This will create a full Network of all the Apps required for an operational system.
