@@ -6,7 +6,7 @@ x-environment:
 services:
   aiimi-elastic:
     container_name: ${RELEASE}-elastic
-    image: aiimilabs/es:0.0.4
+    image: labsaiimi/es:0.0.1
     environment:
       node.name: ${RELEASE}-elastic
     ports:
