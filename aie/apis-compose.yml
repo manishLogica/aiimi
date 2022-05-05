@@ -35,7 +35,7 @@ x-environment:
   IM_HOST_DS_API: &IM_HOST_DS_API $IM_HOST_DS_API
 x-container:
   &container
-  image: aiimilabs/be:${RELEASE}
+  image: labsaiimi/be:${RELEASE}
   volumes:
     [
       'certs:$IM_INTERNAL_CERTS',

@@ -53,8 +53,8 @@ echo "${ELASTICSEARCH_HOSTS}"
 echo "Release: ${RELEASE}"
 
 if [[ $RELEASE = 'staging' ]]; then
-    docker rmi "aiimilabs/be:${RELEASE}" --force
-    docker rmi "aiimilabs/fe:${RELEASE}" --force
+    docker rmi "labsaiimi/be:${RELEASE}" --force
+    docker rmi "labsaiimi/fe:${RELEASE}" --force
 fi
 
 SCRIPT_PIPELINE_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )

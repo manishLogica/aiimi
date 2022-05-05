@@ -29,7 +29,7 @@ x-environment:
   IM_HOST_MIGRATION_AGENT: &IM_HOST_MIGRATION_AGENT $IM_HOST_MIGRATION_AGENT
 x-container:
   &container
-  image: aiimilabs/be:${RELEASE}
+  image: labsaiimi/be:${RELEASE}
   volumes:
     [
       'thumbnails:/thumbnails',

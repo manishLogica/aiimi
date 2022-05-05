@@ -36,7 +36,7 @@ x-environment:
   IM_HOST_FRONTEND: &IM_HOST_FRONTEND $IM_HOST_FRONTEND
 x-container:
   &container
-  image: aiimilabs/fe:${RELEASE}
+  image: labsaiimi/fe:${RELEASE}
   volumes:
     [
       'certs:$IM_INTERNAL_CERTS',
