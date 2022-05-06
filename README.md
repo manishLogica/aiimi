@@ -97,7 +97,16 @@ cd ./aie
 
 ```
 cd ./aie
-./start.sh v1.0.0
+./start.sh -r v1.0.0
 ```
+
+- to expose on a particular port (defaults to 443)
+
+```
+cd ./aie
+./start.sh -p 4433
+```
+
+No matter which port is defined, the **https** protocol is still required.
 
 This will create a full Network of all the Apps required for an operational system.

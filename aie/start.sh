@@ -1,9 +1,26 @@
 #!/bin/bash
-namespace=$1
+#namespace=$1
 RELEASE_TO_BUILD=staging
-if ! [[ -z $namespace ]] && [[ "${namespace}" != "" ]]; then
-    RELEASE_TO_BUILD=$namespace
-fi
+PORT=443
+#if ! [[ -z $namespace ]] && [[ "${namespace}" != "" ]]; then
+#    RELEASE_TO_BUILD=$namespace
+#fi
+
+while [[ $# -gt 0 ]]; do
+  case $1 in
+    -r|--release)
+      RELEASE_TO_BUILD="$2"
+      shift # past argument
+      shift # past value
+      ;;
+    -p|--port)
+      PORT="$2"
+      shift # past argument
+      shift # past value
+      ;;
+  esac
+done
+
 echo "Release: ${RELEASE_TO_BUILD}"
 export RELEASE=${RELEASE_TO_BUILD}
 export COMPOSE_PROJECT_NAME=AIE-QA-${RELEASE}
@@ -48,11 +65,13 @@ export IM_PORT_TIKA=9998
 export IM_HOST_TIKA=${RELEASE}-tika
 export IM_HOST_FRONTEND=${RELEASE}-frontend
 
+export IM_PORT=${PORT}
+
 export ELASTICSEARCH_HOSTS="[\"https://${RELEASE}-elastic:9200\"]"
 echo "${ELASTICSEARCH_HOSTS}"
 echo "Release: ${RELEASE}"
 
-if [[ $RELEASE = 'staging' ]]; then
+if [[ $RELEASE = 'staging2' ]]; then
     docker rmi "labsaiimi/be:${RELEASE}" --force
     docker rmi "labsaiimi/fe:${RELEASE}" --force
 fi

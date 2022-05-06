@@ -57,6 +57,4 @@ services:
       # IM_REMOTE_ADDRESS: https://${IM_HOST_FRONTEND}
     # command: tail -f /dev/null
     command: nginx -g 'daemon off;'
-    ports:
-      - 80:80
 volumes: { "certs" }

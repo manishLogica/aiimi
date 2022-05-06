@@ -16,7 +16,7 @@ services:
       test:
         [
           "CMD-SHELL",
-          "curl -k -XGET https://localhost:9200 | grep -q 'missing authentication credentials'"
+          "curl -k -s -XGET -u $IM_ELASTIC_USER:$IM_ELASTIC_PASSWORD https://localhost:9200/_cat/health?ts=false | grep 'green'"
         ]
       interval: 10s
       timeout: 10s
